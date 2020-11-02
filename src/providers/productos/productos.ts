@@ -31,9 +31,10 @@ export class ProductosService {
                 if(data['error']){
   
                 }else{
-                
-  
-                   this.productos.push(...data['productos']);
+                 
+                  let nuevaData = this.agrupar(data['productos'],2)
+
+                   this.productos.push(...nuevaData);
                   
                    console.log(this.productos);
                    this.pagina +=1;
@@ -48,6 +49,16 @@ export class ProductosService {
     return promesa;
 
   
+  }
+
+  private agrupar( arr:any, tamano:number){
+
+    let nueviArreglo = [];
+    for( let i = 0; i<arr.length; i+=tamano ){
+      nueviArreglo.push( arr.slice(i, i+tamano) );
+    }
+    console.log( nueviArreglo );
+    return nueviArreglo;
   }
 
 }
