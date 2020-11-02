@@ -1,15 +1,27 @@
-<!--
-  Generated template for the ProductoPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
-    <ion-title>producto</ion-title>
+    <ion-title>{{producto.producto}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+
+  <img [src]="producto.codigo | imagen" >
+  <div padding>
+    <h5>{{ producto.producto}}</h5>
+    <p>
+      <strong>Precio:</strong>{{ producto.precio_compra | currency: 'USD'}}
+    </p>
+    <p>
+      {{ producto.descripcion }}
+      <br>
+      <strong>{{ producto.proveedor }}</strong>
+    </p>
+    <button ion-button block icon-left>
+      <ion-icon name='cart'></ion-icon>
+      Agregar al carrito
+    </button>
+  </div>
 
 </ion-content>
