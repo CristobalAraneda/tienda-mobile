@@ -1,14 +1,32 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Mi Tienda
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v3">docs</a> will be your guide.
-  </p>
+ 
+  <ion-grid>
+    <ion-row *ngFor="let item of _ps.productos">
+      <ion-col>
+
+        <img src="http://testing.servebeer.com/tienda/public/img/productos/{{item.codigo}}.jpg" >
+
+        <p>
+          {{item.producto}}
+          <br>
+          {{item.precio_compra | currency:'USD'}}
+        </p>
+  
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll (ionInfinite)="siguiente_page($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  
 </ion-content>

@@ -4,8 +4,13 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+
+import { CarritoService, ProductosService, UsuarioService } from '../providers/index.sevices';
+
 
 @NgModule({
   declarations: [
@@ -14,6 +19,7 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -24,7 +30,10 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    CarritoService,
+    ProductosService,
+    UsuarioService
   ]
 })
 export class AppModule {}
