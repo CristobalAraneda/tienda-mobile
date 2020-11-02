@@ -12,7 +12,7 @@
     <ion-row *ngFor="let pares of _ps.productos">
       <ion-col *ngFor="let item of pares">
 
-        <img src="http://testing.servebeer.com/tienda/public/img/productos/{{item.codigo}}.jpg" >
+        <img [src]="item.codigo | imagen" >
 
         <p>
           {{item.producto}}

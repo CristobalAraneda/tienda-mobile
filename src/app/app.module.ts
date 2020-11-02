@@ -9,12 +9,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+//pipe
+import { ImagenPipe } from "../pipes/imagen/imagen"
+
 import { CarritoService, ProductosService, UsuarioService } from '../providers/index.sevices';
 
 
 @NgModule({
   declarations: [
     MyApp,
+    ImagenPipe,
     HomePage
   ],
   imports: [
