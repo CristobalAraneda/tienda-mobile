@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ModalController, Platform } from 'ionic-angular';
 
+import { UsuarioService } from "../usuario/usuario";
 
+import { CarritoPage, LoginPage } from "../../pages/index.paginas";
+
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class CarritoService {
@@ -10,8 +14,37 @@ export class CarritoService {
   items:any[] = [];
 
   constructor(public http: HttpClient,
-             private alertCtrl:AlertController) {
-    console.log('Hello CarritoProvider Provider');
+             private alertCtrl:AlertController,
+             private platform:Platform,
+             private storage:Storage,
+             private modalCrtl:ModalController,
+             private _us:UsuarioService) {
+   
+              this.cargar_storage();
+  }
+
+  ver_carrito(){
+
+    let modal:any;
+
+    if( this._us.token ){
+      //muesta el carrito
+      modal=this.modalCrtl.create( CarritoPage );
+    }else{
+      // muestra el login
+      modal=this.modalCrtl.create( LoginPage );
+    }
+    modal.present();
+
+    modal.onDidDismiss( (abrirCarrito:boolean)=>{
+
+      if( abrirCarrito ){
+        
+        this.modalCrtl.create( CarritoPage );
+        
+      }
+    } )
+
   }
 
   agregar_carrito( item_parametro:any ){
@@ -32,6 +65,59 @@ export class CarritoService {
       
     }
     this.items.push( item_parametro );
+    this.guardar_storage();
+
+  }
+
+  guardar_storage(){
+
+    if(this.platform.is("cordova")){
+
+      //en dispocitivo
+
+      this.storage.set('items',this.items);
+
+    }else{
+      //computador
+      localStorage.setItem("items", JSON.stringify( this.items));
+    }
+
+  }
+
+  cargar_storage(){
+
+    let promesa =new Promise((resolve, reject) => {
+
+      if(this.platform.is("cordova")){
+        //en dispocitivo
+         this.storage.ready()
+                    .then( ()=> {
+                      this.storage.get("items")
+                                  .then( items => {
+                                    if( items ){
+                                      this.items =items;
+                                    }
+                                    resolve();
+                                  })
+                    })
+        
+  
+      }else{
+        //computador
+
+        if( localStorage.getItem("items") ){
+          // existe items en el storage
+          this.items =JSON.parse( localStorage.getItem("items") );
+        }
+
+        resolve();
+       
+      }
+      
+    });
+    return promesa;
+
+    
 
   }
 

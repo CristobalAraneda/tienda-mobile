@@ -13,7 +13,7 @@ export class ProductoPage {
   producto:any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              private _cs:CarritoService) {
+              public _cs:CarritoService) {
 
     console.log( this.navParams.get("producto") ); 
     this.producto = this.navParams.get("producto");

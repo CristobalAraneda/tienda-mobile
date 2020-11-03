@@ -14,6 +14,9 @@ import { ProductoPage,TabsPage,CarritoPage,CategoriasPage,LoginPage,OrdenesPage,
 //TODO: pipes
 import { ImagenPipe } from "../pipes/imagen/imagen"
 
+//TODO: storage
+import { IonicStorageModule } from '@ionic/storage';
+
 //TODO: servicios
 import { CarritoService, ProductosService, UsuarioService } from '../providers/index.sevices';
 
@@ -35,7 +38,8 @@ import { CarritoService, ProductosService, UsuarioService } from '../providers/i
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -1,5 +1,7 @@
 {
   "name": "tienda",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
