@@ -7,14 +7,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
-//paginas
+//TODO: paginas
 import { ProductoPage,TabsPage,CarritoPage,CategoriasPage,LoginPage,OrdenesPage,OrdenesDetallePage, PorCategoriasPage, HomePage } from "../pages/index.paginas";
  
 
-//pipes
+//TODO: pipes
 import { ImagenPipe } from "../pipes/imagen/imagen"
 
-//servicios
+//TODO: servicios
 import { CarritoService, ProductosService, UsuarioService } from '../providers/index.sevices';
 
 

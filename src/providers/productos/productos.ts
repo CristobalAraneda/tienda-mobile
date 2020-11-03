@@ -9,10 +9,75 @@ export class ProductosService {
 
   pagina:number = 0;
   productos:any[] = [];
+  lineas:any[] = [];
+  por_categoria:any[] = [];
+
 
   constructor(public http: HttpClient) {
     //console.log('Hello ProductosProvider Provider');
     this.cargar_todos();
+    this.cargar_lineas();
+  }
+
+  cargar_por_categoria( categoria:number){
+
+
+    let url = Url_SERVICIOS + "/productos/por_tipo/" + categoria;
+    console.log( url);
+
+    this.http.get( url )
+             .map( resp => resp )
+             .subscribe( data => {
+
+              console.log(data);
+
+              if(data['error']){
+
+                //TODO:manejo de error
+
+              }else{
+               
+                this.por_categoria = data["productos_por_tipo"];
+                
+                 console.log(this.por_categoria);
+              }
+
+             })
+
+  }
+
+  cargar_lineas(){
+
+
+    let url = Url_SERVICIOS + "/lineas";
+      console.log( url);
+
+      this.http.get( url )
+               .map( resp => resp )
+               .subscribe( data => {
+
+                console.log(data);
+
+       if(data['error']){
+
+         //TODO:manejo de error
+
+       }else{
+        
+         this.lineas = data['lineas']
+
+          
+         
+          console.log(this.lineas);
+          
+       }
+
+    
+        
+
+      })
+
+
   }
 
   cargar_todos(){
@@ -29,6 +94,8 @@ export class ProductosService {
                 console.log(data);
   
                 if(data['error']){
+
+                   //TODO:manejo de error
   
                 }else{
                  
@@ -50,6 +117,7 @@ export class ProductosService {
 
   
   }
+
 
   private agrupar( arr:any, tamano:number){
 
