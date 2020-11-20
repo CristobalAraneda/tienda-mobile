@@ -24,7 +24,7 @@ export class CarritoService {
   }
 
   ver_carrito(){
-
+//TODO: Manejo de ver carro de compra
     let modal:any;
 
     if( this._us.token ){
@@ -39,14 +39,14 @@ export class CarritoService {
     modal.onDidDismiss( (abrirCarrito:boolean)=>{
 
       if( abrirCarrito ){
-        
+        //FIXME: agregar present cuando carge los item pageCarrito
         this.modalCrtl.create( CarritoPage );
         
       }
     } )
 
   }
-
+//TODO: Agrega item a carrito
   agregar_carrito( item_parametro:any ){
 
     console.log(item_parametro);
@@ -68,7 +68,7 @@ export class CarritoService {
     this.guardar_storage();
 
   }
-
+//TODO: Guarda en storage de carrito
   guardar_storage(){
 
     if(this.platform.is("cordova")){
@@ -83,7 +83,7 @@ export class CarritoService {
     }
 
   }
-
+  //TODO:  carga de storage de carrito
   cargar_storage(){
 
     let promesa =new Promise((resolve, reject) => {

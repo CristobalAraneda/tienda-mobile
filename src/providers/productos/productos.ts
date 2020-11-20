@@ -33,7 +33,7 @@ export class ProductosService {
 
               if(data['error']){
 
-                //TODO:manejo de error
+                //FIXME:manejo de error
 
               }else{
                
@@ -60,7 +60,8 @@ export class ProductosService {
 
        if(data['error']){
 
-         //TODO:manejo de error
+         //FIXME:manejo de error
+         
 
        }else{
         
@@ -95,7 +96,8 @@ export class ProductosService {
   
                 if(data['error']){
 
-                   //TODO:manejo de error
+                  //FIXME: manejo de erro 
+                 
   
                 }else{
                  
@@ -107,7 +109,7 @@ export class ProductosService {
                    this.pagina +=1;
                 }
 
-                resolve();
+                resolve(); 
                  
   
                })
