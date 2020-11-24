@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AlertController, ModalController, Platform } from 'ionic-angular';
+import { AlertController, ModalController, Platform} from 'ionic-angular';
 
 import { UsuarioService } from "../usuario/usuario";
 
@@ -12,15 +12,18 @@ import { Storage } from '@ionic/storage';
 export class CarritoService {
 
   items:any[] = [];
+  total_carrito:number;
 
   constructor(public http: HttpClient,
              private alertCtrl:AlertController,
              private platform:Platform,
              private storage:Storage,
              private modalCrtl:ModalController,
-             private _us:UsuarioService) {
+             private _us:UsuarioService
+             ) {
    
               this.cargar_storage();
+              this.actualiza_total();
   }
 
   ver_carrito(){
@@ -38,9 +41,11 @@ export class CarritoService {
 
     modal.onDidDismiss( (abrirCarrito:boolean)=>{
 
+      console.log(abrirCarrito);
+
       if( abrirCarrito ){
-        //FIXME: agregar present cuando carge los item pageCarrito
-        this.modalCrtl.create( CarritoPage );
+        
+        this.modalCrtl.create( CarritoPage ).present();
         
       }
     } )
@@ -56,7 +61,7 @@ export class CarritoService {
 
         this.alertCtrl.create({
           title: "Item exixte",
-          subTitle: item_parametro + ", ya se encuentra en el carrito de compra",
+          subTitle: item_parametro.producto + ", ya se encuentra en el carrito de compra",
           buttons:["OK"]
         }).present();
 
@@ -65,6 +70,7 @@ export class CarritoService {
       
     }
     this.items.push( item_parametro );
+    this.actualiza_total();
     this.guardar_storage();
 
   }
@@ -117,8 +123,18 @@ export class CarritoService {
     });
     return promesa;
 
-    
+  }
 
+  actualiza_total(){
+
+    this.total_carrito = 0;
+    for (let item of this.items ) {
+      this.total_carrito += Number( item.precio_compra );
+
+      
+    }
+    console.log(this.total_carrito);
+      
   }
 
 }

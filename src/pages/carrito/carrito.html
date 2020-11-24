@@ -6,10 +6,61 @@
 -->
 <ion-header>
   <ion-navbar>
+    <ion-buttons start>
+      <button ion-button
+               (click)="viewCtrl.dismiss()">
+               Cerrar
+      </button>
+    </ion-buttons>
     <ion-title>carrito</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+
+  <div text-center 
+     *ngIf="_cs.items.length === 0"
+     class="carrito_vacio">
+    <ion-icon name="ios-cart-outline" class="icon-5x"></ion-icon>
+    <br>
+    Su carrito esta vacio
+
+  </div>
+  <div *ngIf="_cs.items.length !=0">
+    <ion-grid>
+      <ion-row *ngFor="let item of _cs.items">
+        <ion-col>
+          <img [src]="item.codigo | imagen">
+        </ion-col>
+
+        <ion-col>
+    
+          <p>{{ item.producto }}</p>
+          <p>{{ item.precio_compra | currency:'USD' }}</p>
+    
+          <button ion-button
+                  color="danger"
+                  ouline
+                  small>
+                Eliminar
+                </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <hr>
+    <ion-grid>
+      <ion-row>
+        <h3>
+          <strong>TOTAL:</strong>
+          {{ _cs.total_carrito | currency:'USD' }}
+        </h3>
+      </ion-row>
+    </ion-grid>
+
+    <button ion-button
+            block>
+            Reliazar Pedido
+    </button>
+  </div>
 
 </ion-content>
