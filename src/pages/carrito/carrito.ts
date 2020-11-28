@@ -19,7 +19,7 @@ export class CarritoPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CarritoPage');
 
-    //me quede aqui:177 pantalla de carrito
+    
   }
 
 }

@@ -136,5 +136,11 @@ export class CarritoService {
     console.log(this.total_carrito);
       
   }
+//TODO: ellimina los iten de carrito del storage
+  remove_item( idx:number ){
+
+    this.items.splice(idx,1);
+    this.guardar_storage();
+  }
 
 }

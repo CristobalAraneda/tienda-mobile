@@ -28,7 +28,7 @@
   </div>
   <div *ngIf="_cs.items.length !=0">
     <ion-grid>
-      <ion-row *ngFor="let item of _cs.items">
+      <ion-row *ngFor="let item of _cs.items; let i = index;">
         <ion-col>
           <img [src]="item.codigo | imagen">
         </ion-col>
@@ -41,7 +41,8 @@
           <button ion-button
                   color="danger"
                   ouline
-                  small>
+                  small
+                  (click)="_cs.remove_item( i )">
                 Eliminar
                 </button>
         </ion-col>
