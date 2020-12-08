@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { CarritoService } from "../../providers/carrito/carrito";
 
+import { OrdenesDetallePage } from "../index.paginas";
 
 @Component({
   selector: 'page-ordenes',
@@ -8,11 +10,15 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class OrdenesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  ordenesDetalle = OrdenesDetallePage;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private _cs:CarritoService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OrdenesPage');
+  ionViewWillEnter() {
+    console.log('Cargando Ordenes');
+    this._cs.cargar_odenes();
   }
 
 }

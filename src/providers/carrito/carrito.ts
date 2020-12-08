@@ -1,18 +1,22 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient , HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController, ModalController, Platform} from 'ionic-angular';
 
 import { UsuarioService } from "../usuario/usuario";
 
+import { Url_SERVICIOS } from "../../config/url.servicios";
+
 import { CarritoPage, LoginPage } from "../../pages/index.paginas";
 
 import { Storage } from '@ionic/storage';
+
 
 @Injectable()
 export class CarritoService {
 
   items:any[] = [];
   total_carrito:number;
+  ordenes:any[] =[];
 
   constructor(public http: HttpClient,
              private alertCtrl:AlertController,
@@ -124,7 +128,7 @@ export class CarritoService {
     return promesa;
 
   }
-
+//TODO: carga el total del carrito 
   actualiza_total(){
 
     this.total_carrito = 0;
@@ -141,6 +145,88 @@ export class CarritoService {
 
     this.items.splice(idx,1);
     this.guardar_storage();
+    this.actualiza_total();
   }
 
+  //TODO: Realiza los pedido 
+  realizar_pedido(){
+
+
+    let codigo:string[]=[];
+
+    for (let item of this.items) {
+      codigo.push( item.codigo );
+      
+    }
+
+    let data = new HttpParams()
+
+    .append("items",codigo.join(","));
+
+   //BUG: validar usuario SW
+
+    let url = `${Url_SERVICIOS}/pedidos/realizar_orden/${ this._us.token}/${ this._us.id_usuario}`;
+
+    //console.log(url);
+    //console.log(data["updates"]);
+
+    this.http.post( url, data )
+        .subscribe( resp =>{
+
+          let respuesta = resp;
+
+
+          if( respuesta["error"]){
+            //FIXME: mostar error
+
+            this.alertCtrl.create({
+              title: "Error al Realizar pedido",
+              subTitle: respuesta["mensaje"],
+              buttons: ["ok"]
+            }).present();
+
+           
+          }else{
+            this.items= [];
+
+            //FIXME: borrar storage
+
+            this.alertCtrl.create({
+              title:" Orden ralizado",
+              subTitle: "Nº Orden "+respuesta["orden_id"],
+              buttons:["OK"]
+            }).present();
+          }
+          
+        }) 
+
+
+    
+  }
+//TODO: Carga todas las ordenes
+  cargar_odenes(){
+
+    let url = `${Url_SERVICIOS}/pedidos/obtener_pedido/${ this._us.token}/${ this._us.id_usuario}`;
+
+    this.http.get( url )
+        .subscribe( data =>{
+
+          if(data["error"]){
+
+            //FIXME: manejar error
+
+            console.log(data["mensaje"]);
+
+          }else{
+
+            this.ordenes = data["mensaje"];
+
+            console.log(this.ordenes);
+
+
+
+          }
+
+        })
+  }
 }

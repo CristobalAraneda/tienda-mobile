@@ -7,11 +7,15 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class OrdenesDetallePage {
 
+  orden:any = {};
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+    this.orden = this.navParams.get("orden");
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OrdenesDetallePage');
-  }
+ // me quede aqui:181 eliminar y implementar buscador
+
+ 
 
 }
