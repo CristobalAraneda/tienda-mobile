@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 
-import { HomePage,CategoriasPage,OrdenesPage} from "../index.paginas"
+import { HomePage,CategoriasPage,OrdenesPage,} from "../index.paginas"
 
 
 @Component({
@@ -13,5 +13,6 @@ export class TabsPage {
   tab1=HomePage;
   tab2 = CategoriasPage;
   tab3 = OrdenesPage;
+  tab4 = "BusquedaPage";
 
 }

@@ -14,7 +14,7 @@ export class OrdenesDetallePage {
     this.orden = this.navParams.get("orden");
   }
 
- // me quede aqui:181 eliminar y implementar buscador
+ 
 
  
 

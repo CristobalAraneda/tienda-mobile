@@ -229,4 +229,14 @@ export class CarritoService {
 
         })
   }
+//FIXME: dar de alta el pedido 
+  borrar_oredene(){
+    /* cambiar la estrictura de borrar , mejorar a para  produccion metodo 181 */
+
+    let url = `${Url_SERVICIOS}/pedidos/obtener_pedido/${ this._us.token}/${ this._us.id_usuario}`;
+    this.http.delete( url )
+        .map( resp => resp);
+  }
+
+
 }

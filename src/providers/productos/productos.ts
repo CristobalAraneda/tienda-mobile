@@ -11,6 +11,7 @@ export class ProductosService {
   productos:any[] = [];
   lineas:any[] = [];
   por_categoria:any[] = [];
+  resultados:any[] = [];
 
 
   constructor(public http: HttpClient) {
@@ -129,6 +130,20 @@ export class ProductosService {
     }
     console.log( nueviArreglo );
     return nueviArreglo;
+  }
+
+  buscar_producto( busquda:string ){
+  //BUG: al limpiar el tremino de buscar en vacio llama el servicio en error 
+    let url = Url_SERVICIOS + "/productos/buscar/" + busquda;
+
+    this.http.get( url )
+        .subscribe( resp=>{
+          let data = resp;
+
+          this.resultados = data["productos_Busqueda"]
+        });
+
+
   }
 
 }
